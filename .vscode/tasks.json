@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Server Dependencies",
+      "hide": true,
+      "type": "shell",
+      "command": "[ -f package-lock.json ] && echo 'server dependencies already installed' || npm install",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Install Client Dependencies",
+      "type": "shell",
+      "hide": true,
+      "command": "[ -f package-lock.json ] && echo 'client dependencies already installed' || npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/client"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Server",
+      "type": "shell",
+      "hide": true,
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/server"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Wait for Server",
+      "type": "shell",
+      "hide": true,
+      "isBackground": true,
+      "command": "npx wait-on tcp:3090 --interval 500",
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Client",
+      "type": "shell",
+      "hide": true,
+      "command": "npm start",
+      "options": {
+        "cwd": "${workspaceFolder}/client"
+      },
+      "dependsOn": ["Wait for Server"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Start All",
+      "dependsOn": ["Start Server", "Start Client"],
+      "dependsOrder": "parallel"
+    }
+  ]
+}
