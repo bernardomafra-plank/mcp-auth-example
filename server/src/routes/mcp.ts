@@ -4,10 +4,11 @@ import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import { InMemoryEventStore } from "@modelcontextprotocol/sdk/examples/shared/inMemoryEventStore.js";
 import { randomUUID } from 'node:crypto';
 import { TransportManager } from "../utils/transport-manager.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
 const transportManager = new TransportManager();
 
-export function registerMcpRoutes(app: Express, authMiddleware: any, getServer: () => any) {
+export function registerMcpRoutes(app: Express, authMiddleware: any, getServer: () => McpServer) {
   app.post('/mcp', authMiddleware, async (req: Request, res: Response) => {
     try {
       const sessionId = req.headers['mcp-session-id'] as string | undefined;
