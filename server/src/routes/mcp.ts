@@ -63,6 +63,10 @@ export function registerMcpRoutes(app: Express, authMiddleware: any, getServer: 
     await transport.handleRequest(req, res);
   });
 
+  app.get('/', (req: Request, res: Response) => {
+    res.status(200).send("OK");
+  });
+
   app.delete('/mcp', authMiddleware, async (req: Request, res: Response) => {
     const sessionId = req.headers['mcp-session-id'] as string | undefined;
     if (!sessionId || !transportManager.get(sessionId)) {
