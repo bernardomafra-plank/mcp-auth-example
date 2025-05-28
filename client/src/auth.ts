@@ -1,12 +1,7 @@
-// --- OAuth Auth Provider for MCP Client ---
 import { OAuthClientProvider } from "@modelcontextprotocol/sdk/client/auth.js";
-import { OAuthClientInformation, OAuthClientInformationFull, OAuthClientMetadata, OAuthTokens } from "@modelcontextprotocol/sdk/shared/auth.js";
-
-export const CALLBACK_PORT = 3092;
-export const CALLBACK_URL = `http://localhost:${CALLBACK_PORT}/callback`;
+import { OAuthClientInformation, OAuthClientMetadata, OAuthTokens } from "@modelcontextprotocol/sdk/shared/auth.js";
 
 export class InMemoryOAuthClientProvider implements OAuthClientProvider {
-  private _clientInformation?: OAuthClientInformationFull;
   private _tokens?: OAuthTokens;
   private _codeVerifier?: string;
   private _onRedirect: (url: URL) => void;
@@ -14,6 +9,7 @@ export class InMemoryOAuthClientProvider implements OAuthClientProvider {
   constructor(
     private readonly _redirectUrl: string | URL,
     private readonly _clientMetadata: OAuthClientMetadata,
+    private readonly _clientInformation: OAuthClientInformation,
     onRedirect?: (url: URL) => void
   ) {
     this._onRedirect = onRedirect || ((url) => console.log(`[INFO] Redirect to: ${url.toString()}`));
@@ -29,10 +25,6 @@ export class InMemoryOAuthClientProvider implements OAuthClientProvider {
 
   clientInformation(): OAuthClientInformation | undefined {
     return this._clientInformation;
-  }
-
-  saveClientInformation(clientInformation: OAuthClientInformationFull): void {
-    this._clientInformation = clientInformation;
   }
 
   tokens(): OAuthTokens | undefined {

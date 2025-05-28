@@ -24,7 +24,7 @@
     {
       "label": "Start Server",
       "type": "shell",
-      "hide": true,
+      "hide": false,
       "command": "npm start",
       "options": {
         "cwd": "${workspaceFolder}/server"
@@ -42,7 +42,7 @@
     {
       "label": "Start Client",
       "type": "shell",
-      "hide": true,
+      "hide": false,
       "command": "npm start",
       "options": {
         "cwd": "${workspaceFolder}/client"
