@@ -6,8 +6,8 @@ This is an example implementation of an MCP server and client using [Streamable 
 
 This repository is organized as a monorepo with separate `server` and `client` directories:
 
-- `server/` — The MCP server implementation
-- `client/` — The MCP client implementation
+- `server/*` — The MCP server implementation
+- `client/*` — The MCP client implementation
 
 ## Quick Start (Manual)
 
